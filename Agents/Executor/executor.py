@@ -8,7 +8,7 @@ PROMPT = open("src/agents/decision/prompt.jinja2").read().strip()
 
 class Decision:
     def __init__(self, base_model: str):
-        self.llm = LLM(model_id=base_model)
+        self.llm = LLM(model_name=base_model)
 
     def render(self, prompt: str) -> str:
         env = Environment(loader=BaseLoader())
@@ -26,7 +26,7 @@ class Decision:
     @retry_wrapper
     def execute(self, prompt: str, project_name: str) -> str:
         rendered_prompt = self.render(prompt)
-        response = self.llm.inference(rendered_prompt, project_name)
+        response = self.llm.inference(rendered_prompt)
         
         valid_response = self.validate_response(response)
 
