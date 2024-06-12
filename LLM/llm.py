@@ -1,5 +1,5 @@
 
-from LLM.openai import OpenAI
+from LLM.openai_model import OpenAI
 from LLM.ollama import Ollama
 
 class LLM:
