@@ -4,7 +4,7 @@ from jinja2 import Environment, BaseLoader
 
 from LLM.llm import LLM
 
-PROMPT = open("src/agents/decision/prompt.jinja2").read().strip()
+PROMPT = open("Agents/decision/prompt.jinja2").read().strip()
 
 class Decision:
     def __init__(self, base_model: str):

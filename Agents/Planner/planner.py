@@ -1,10 +1,10 @@
 from jinja2 import Environment, BaseLoader
-
+from LLM.llm import LLM
 PROMPT = open("Agents/Planner/prompt.jinja2").read().strip()
 
 class Planner:
-    def __init__(self, base_model: str):
-        self.llm = LLM(model_id=base_model)
+    def __init__(self, model_name, base_model, base_url = "http://localhost:11434"):
+        self.llm = LLM(model_name = model_name, model_type=base_model, base_url=base_url)
 
     def render(self, prompt: str) -> str:
         env = Environment(loader=BaseLoader())
