@@ -10,17 +10,17 @@
 # Based on the response from above, call the functions and append their results to the 
 
 
-#from Agents.Executor import Executor
-#from Agents.FeedBack import FeedBack
+from Agents.Executor import Executor
+from Agents.FeedBack import FeedBack
 from Agents.Planner.planner import Planner
 from collections import deque
 from Agents.Executor.executor import callFunction
-
+from Agents.Composer import Composer
 
 def getAnswer(prompt, model_name, model_type, base_url):
 
     planner = Planner(model_name, model_type, base_url)
-    #executor = Executor(model_name)
+    executor = Executor(model_name)
 
     response = planner.execute(prompt)
     result = planner.parse_response(response)
@@ -30,7 +30,7 @@ def getAnswer(prompt, model_name, model_type, base_url):
     for key, value in result["plans"].items():
         pendingTasks.append(value)
 
-    ''''
+    
     completedTasks = deque()
 
     while len(pendingTasks) > 0:
@@ -59,13 +59,13 @@ def getAnswer(prompt, model_name, model_type, base_url):
     response = composer.parse_response(response)
 
     return response['reply']
-    '''
+    
     
     
 
 if __name__ == "__main__":
     prompt = "Find distance between Hilton Orrignton and Northwestern Tech Building"
-    model_name = "ollama"
-    model_type = "llama3"
+    model_name = "openai"
+    model_type = "gpt-3.5-turbo-0125"
     base_url = "http://localhost:11434"
     print(getAnswer(prompt, model_name, model_type, base_url))

@@ -4,7 +4,7 @@ from jinja2 import Environment, BaseLoader
 
 from LLM.llm import LLM
 
-PROMPT = open("Agents/decision/prompt.jinja2").read().strip()
+PROMPT = open("Agents/Executor/prompt.jinja2").read().strip()
 
 class Decision:
     def __init__(self, base_model: str):
@@ -15,7 +15,6 @@ class Decision:
         template = env.from_string(PROMPT)
         return template.render(prompt=prompt)
 
-    @validate_responses
     def validate_response(self, response: str):
         for item in response:
             if "function" not in item or "args" not in item or "reply" not in item:
@@ -23,7 +22,6 @@ class Decision:
         
         return response
 
-    @retry_wrapper
     def execute(self, prompt: str, project_name: str) -> str:
         rendered_prompt = self.render(prompt)
         response = self.llm.inference(rendered_prompt)
